@@ -1,0 +1,41 @@
+PODS:
+  - Flutter (1.0.0)
+  - TensorFlowLiteC (2.6.0):
+    - TensorFlowLiteC/Core (= 2.6.0)
+  - TensorFlowLiteC/Core (2.6.0)
+  - TensorFlowLiteSwift (2.6.0):
+    - TensorFlowLiteSwift/Core (= 2.6.0)
+  - TensorFlowLiteSwift/Core (2.6.0):
+    - TensorFlowLiteC (= 2.6.0)
+  - Vouched (0.5.8):
+    - TensorFlowLiteSwift (~> 2.2)
+  - vouched_plugin (0.0.1):
+    - Flutter
+    - Vouched
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - vouched_plugin (from `.symlinks/plugins/vouched_plugin/ios`)
+
+SPEC REPOS:
+  trunk:
+    - TensorFlowLiteC
+    - TensorFlowLiteSwift
+    - Vouched
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  vouched_plugin:
+    :path: ".symlinks/plugins/vouched_plugin/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  TensorFlowLiteC: 869f93708210ed939fc40f40c772a120b7f964d1
+  TensorFlowLiteSwift: 78bc548132d2cae55643f3238359a24a6eb92b88
+  Vouched: 459fb985f58fc1aee9d08847aa25d3e7b71e1c99
+  vouched_plugin: 76faf7bbf23b90ad880e431872b319ec6edc6bdc
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.11.2

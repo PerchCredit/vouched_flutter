@@ -1,0 +1,10 @@
+#include "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+#include "Generated.xcconfig"
+
+
+API_KEY = BPwT!A*v-2q~fGeZ6w9Y8~*zWrGxo3
+APP_NAME = vouched_2 (Dev)
+
+// local dev server usage only. Otherwise don't specify API_URL
+SLASH = /
+API_URL =
