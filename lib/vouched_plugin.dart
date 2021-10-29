@@ -49,7 +49,7 @@ class VouchedPlugin {
         }
         case 'dataReceived': {
           try {
-            UserDataModel vouchedResult = UserDataModel(firstName: call.arguments['firstName'], lastName: call.arguments['lastName'], 
+            UserDataModel vouchedResult = UserDataModel(id: call.arguments['id'], firstName: call.arguments['firstName'], lastName: call.arguments['lastName'], 
             issueDate: call.arguments['issueDate'], expiryDate: call.arguments["expiryDate"], state: call.arguments['state'], 
             country: call.arguments['country']);
             setUserDataCallback.call(vouchedResult);
