@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package id.vouched.android.example;
+package com.example.vouched_plugin;
 
 import android.Manifest;
 import android.app.Fragment;
@@ -372,7 +372,7 @@ public class DetectorActivity extends AppCompatActivity implements OnImageAvaila
     }
 
     @Override
-    public void onCardDetectResult(CardDetectResult result) {
+    public void onCardDetectResult(final CardDetectResult result) {
         switch (result.getStep()) {
             case PRE_DETECTED:
             case DETECTED:
@@ -476,7 +476,7 @@ public class DetectorActivity extends AppCompatActivity implements OnImageAvaila
         textView.setText(s);
     }
 
-    protected void processResult(CardDetectResult cardDetectResult) {
+    protected void processResult(final CardDetectResult cardDetectResult) {
 
         runOnUiThread(new Runnable() {
             @Override
@@ -513,7 +513,7 @@ public class DetectorActivity extends AppCompatActivity implements OnImageAvaila
         // After session call, clear/clean CardDetect state
         cardDetect.reset();
 
-        Runnable resumeCamera = new Runnable() {
+        final Runnable resumeCamera = new Runnable() {
             public void run() {
                 waitingOnVouched = false;
                 posted = false;
@@ -560,17 +560,17 @@ public class DetectorActivity extends AppCompatActivity implements OnImageAvaila
                 }
             }, 5000);
         } else {
-            if (oldCamera == null) {
-                camera.onPause();
-                Intent i = new Intent(DetectorActivity.this, FaceDetectorActivity.class);
-                i.putExtra("Session", (Serializable) session);
-                startActivity(i);
-            } else {
-                oldCamera.stopPreview();
-                Intent i = new Intent(DetectorActivity.this, FaceDetectorActivity.class);
-                i.putExtra("Session", (Serializable) session);
-                startActivity(i);
-            }
+//            if (oldCamera == null) {
+//                camera.onPause();
+//                Intent i = new Intent(DetectorActivity.this, FaceDetectorActivity.class);
+//                i.putExtra("Session", (Serializable) session);
+//                startActivity(i);
+//            } else {
+//                oldCamera.stopPreview();
+//                Intent i = new Intent(DetectorActivity.this, FaceDetectorActivity.class);
+//                i.putExtra("Session", (Serializable) session);
+//                startActivity(i);
+//            }
         }
     }
 

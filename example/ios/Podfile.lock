@@ -30,7 +30,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/vouched_plugin/ios"
 
 SPEC CHECKSUMS:
-  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   TensorFlowLiteC: 869f93708210ed939fc40f40c772a120b7f964d1
   TensorFlowLiteSwift: 78bc548132d2cae55643f3238359a24a6eb92b88
   Vouched: 459fb985f58fc1aee9d08847aa25d3e7b71e1c99

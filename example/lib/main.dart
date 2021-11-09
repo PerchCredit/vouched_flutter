@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:vouched_plugin/models/user_data_model.dart';
 
@@ -66,21 +67,41 @@ class NativeViewScannerCard extends StatelessWidget {
 
   const NativeViewScannerCard({ Key key, this.showProgress, this.showInstruction, this.setUserData, this.showErrorMessage }) : super(key: key);
 
+  void initializeVouched(BuildContext context) async {
+    VouchedPlugin.getDataFromNative();
+    await VouchedPlugin.showScanner(MediaQuery.of(context).size.width - 16.0, MediaQuery.of(context).size.width - 16.0);
+        
+    VouchedPlugin.setProgressIndicator((value) => showProgress(value));
+    VouchedPlugin.setInstruction((value) => showInstruction(value));
+    VouchedPlugin.setUserData((value) => setUserData(value));
+    VouchedPlugin.setErrorMessage((value) => showErrorMessage(value));   
+  }
+
   @override
   Widget build(BuildContext context) {
-    return UiKitView(viewType: 'vouchedScannerCardView', onPlatformViewCreated: (id) async {
-      try {
-        VouchedPlugin.getDataFromNative();
-        await VouchedPlugin.showScanner(MediaQuery.of(context).size.width - 16.0, MediaQuery.of(context).size.width - 16.0);
-        
-        VouchedPlugin.setProgressIndicator((value) => showProgress(value));
-        VouchedPlugin.setInstruction((value) => showInstruction(value));
-        VouchedPlugin.setUserData((value) => setUserData(value));
-        VouchedPlugin.setErrorMessage((value) => showErrorMessage(value));                        
-      } 
-      catch (e) {
-        print(e);
-      }
-    });
+    final String viewType = 'vouchedScannerCardView';
+
+    switch(defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return AndroidView(viewType: viewType, onPlatformViewCreated: (id) async {
+          try {
+            initializeVouched(context);
+          }
+          catch (e) {
+            print(e);
+          }
+        });
+      case TargetPlatform.iOS:
+        return UiKitView(viewType: viewType, onPlatformViewCreated: (id) async {
+          try {
+            initializeVouched(context);             
+          } 
+          catch (e) {
+            print(e);
+          }
+        });
+      default:
+      throw UnsupportedError("Unsupported platform view");
+    }
   }
 }
