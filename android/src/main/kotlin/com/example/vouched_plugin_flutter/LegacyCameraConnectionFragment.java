@@ -1,4 +1,4 @@
-package com.example.vouched_plugin;
+package com.example.vouched_plugin_flutter;
 
 /*
  * Copyright 2019 The TensorFlow Authors. All Rights Reserved.

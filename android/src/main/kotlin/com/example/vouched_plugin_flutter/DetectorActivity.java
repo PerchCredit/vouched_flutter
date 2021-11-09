@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.vouched_plugin;
+package com.example.vouched_plugin_flutter;
 
 import android.Manifest;
 import android.app.Fragment;
