@@ -284,17 +284,25 @@ class ResultConfidences extends _Model {
 
   factory ResultConfidences.fromMap(Map<String, dynamic> json) {
     return ResultConfidences(
-      id: json['id'] ?? 0,
-      idQuality: json['idQuality'] ?? 0,
-      idGlareQuality: json['idGlareQuality'] ?? 0,
+      id: json['id'] != null ? json['id'].toDouble() : 0,
+      idQuality: json['idQuality'] != null ? json['idQuality'].toDouble() : 0,
+      idGlareQuality: json['idGlareQuality'] != null
+          ? json['idGlareQuality'].toDouble()
+          : 0,
       selfie: json['selfie'] ?? 0,
       idMatch: json['idMatch'] ?? 0,
-      idExpired: json['idExpired'] ?? 0,
-      faceMatch: json['faceMatch'] ?? 0,
-      birthDateMatch: json['birthDateMatch'] ?? 0,
-      nameMatch: json['nameMatch'] ?? 0,
-      selfieSunglasses: json['selfieSunglasses'] ?? 0,
-      selfieEyeglasses: json['selfieEyeglasses'] ?? 0,
+      idExpired: json['idExpired'] != null ? json['idExpired'].toDouble() : 0,
+      faceMatch: json['faceMatch'] != null ? json['faceMatch'].toDouble() : 0,
+      birthDateMatch: json['birthDateMatch'] != null
+          ? json['birthDateMatch'].toDouble()
+          : 0,
+      nameMatch: json['nameMatch'] != null ? json['nameMatch'].toDouble() : 0,
+      selfieSunglasses: json['selfieSunglasses'] != null
+          ? json['selfieSunglasses'].toDouble()
+          : 0,
+      selfieEyeglasses: json['selfieEyeglasses'] != null
+          ? json['selfieEyeglasses'].toDouble()
+          : 0,
     );
   }
 
