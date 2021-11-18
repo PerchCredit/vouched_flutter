@@ -1,21 +1,23 @@
 PODS:
   - Flutter (1.0.0)
-  - TensorFlowLiteC (2.6.0):
-    - TensorFlowLiteC/Core (= 2.6.0)
-  - TensorFlowLiteC/Core (2.6.0)
-  - TensorFlowLiteSwift (2.6.0):
-    - TensorFlowLiteSwift/Core (= 2.6.0)
-  - TensorFlowLiteSwift/Core (2.6.0):
-    - TensorFlowLiteC (= 2.6.0)
-  - Vouched (0.5.8):
-    - TensorFlowLiteSwift (~> 2.2)
-  - vouched_plugin (0.0.1):
+  - TensorFlowLiteC (2.7.0):
+    - TensorFlowLiteC/Core (= 2.7.0)
+  - TensorFlowLiteC/Core (2.7.0)
+  - TensorFlowLiteSwift (2.7.0):
+    - TensorFlowLiteSwift/Core (= 2.7.0)
+  - TensorFlowLiteSwift/Core (2.7.0):
+    - TensorFlowLiteC (= 2.7.0)
+  - Vouched (0.9.1):
+    - Vouched/Core (= 0.9.1)
+  - Vouched/Core (0.9.1):
+    - TensorFlowLiteSwift
+  - vouched_flutter (0.0.1):
     - Flutter
-    - Vouched
+    - Vouched (= 0.9.1)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - vouched_plugin (from `.symlinks/plugins/vouched_plugin/ios`)
+  - vouched_flutter (from `.symlinks/plugins/vouched_flutter/ios`)
 
 SPEC REPOS:
   trunk:
@@ -26,16 +28,16 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  vouched_plugin:
-    :path: ".symlinks/plugins/vouched_plugin/ios"
+  vouched_flutter:
+    :path: ".symlinks/plugins/vouched_flutter/ios"
 
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  TensorFlowLiteC: 869f93708210ed939fc40f40c772a120b7f964d1
-  TensorFlowLiteSwift: 78bc548132d2cae55643f3238359a24a6eb92b88
-  Vouched: 459fb985f58fc1aee9d08847aa25d3e7b71e1c99
-  vouched_plugin: 76faf7bbf23b90ad880e431872b319ec6edc6bdc
+  TensorFlowLiteC: 50d75ed3640c15dcfbaf88ca4326297b445e00a1
+  TensorFlowLiteSwift: fe99748dc3d58ae08bd2ff38658e3ade7038670f
+  Vouched: 6b5abe200ec4dce48ae7bc8a92ca34c5d08b7767
+  vouched_flutter: ca6438842b79a75006ef04562a79a2c0d3afde20
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: ce13d36744da294d67f8e460dbb7aed7c09bd7f4
 
 COCOAPODS: 1.11.2

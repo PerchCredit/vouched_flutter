@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>vouched_plugin_example</string>
+	<string>vouched_example</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -22,6 +22,8 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Vouched Demo uses your camera to verify your identity.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -41,11 +43,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>API_KEY</key>
-	<string>$(API_KEY)</string>
-	<key>API_URL</key>
-	<string>$(API_URL)</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Allow access to your camera for the submission of identification documents and proof of payments.</string>
 </dict>
 </plist>

@@ -1,6 +1,6 @@
-# vouched_plugin_example
+# vouched_example
 
-Demonstrates how to use the vouched_plugin plugin.
+Demonstrates how to use the vouched plugin.
 
 ## Getting Started
 

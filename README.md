@@ -1,15 +1,19 @@
-# vouched_plugin
+# Vouched Plugin for Flutter
 
-A new flutter plugin project.
+## Running Example App
+To run the example app properly, an API KEY is required.
 
-## Getting Started
+The API KEY can be provided in two ways:
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+1. Using `VouchedScanner`:
+```dart
+VouchedScanner(
+  apiKey: <YOUR-API-KEY>,
+)
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. At build time:
+```shell
+flutter run --dart-define=VOUCHED_API_KEY=<YOUR-API-KEY>
+```
 

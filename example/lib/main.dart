@@ -1,107 +1,147 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:vouched_plugin/models/user_data_model.dart';
-
-import 'package:vouched_plugin/vouched_plugin.dart';
+import 'package:flutter/services.dart';
+import 'package:vouched_flutter/vouched_flutter.dart';
+import 'package:vouched_example/detail_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-
-  bool showProgress = false;
-
-  void setProgressIndicator(bool value) {
-    setState(() {
-      showProgress = value;
-    });
-  }
-
-  void displayInstruction(String value) {
-    print(value);
-  }
-
-  void fetchUserData(UserDataModel value) {
-    print(value);
-  }
-
-  void displayErrorMessage(String value) {
-    print(value);
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-      appBar: AppBar(title: const Text('Vouched example app')),
-      body: Builder(
-        builder: (context) {
-          return Center(
-            child: SizedBox(height: MediaQuery.of(context).size.width - 16.0, width: MediaQuery.of(context).size.width - 16.0,
-              child: Stack(alignment: Alignment.center, 
-                children: [ 
-                  NativeViewScannerCard(showProgress: setProgressIndicator, showInstruction: displayInstruction, setUserData: fetchUserData, showErrorMessage: displayErrorMessage),
-                (showProgress)
-                  ? Align(alignment: Alignment.center,
-                      child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.purple)))
-                  : Container()
-              ])
-          ));
-        })
-    ));
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.from(
+        colorScheme: const ColorScheme.light(primary: Colors.deepPurple),
+      ),
+      home: const ScannerPage(),
+    );
   }
 }
 
-class NativeViewScannerCard extends StatelessWidget {
+class ScannerPage extends StatefulWidget {
+  const ScannerPage({Key? key}) : super(key: key);
 
-  final Function(bool) showProgress;
-  final Function(String) showInstruction;
-  final Function(UserDataModel) setUserData;
-  final Function(String) showErrorMessage;
+  @override
+  State<ScannerPage> createState() => _ScannerPageState();
+}
 
-  const NativeViewScannerCard({ Key key, this.showProgress, this.showInstruction, this.setUserData, this.showErrorMessage }) : super(key: key);
-
-  void initializeVouched(BuildContext context) async {
-    VouchedPlugin.getDataFromNative();
-    await VouchedPlugin.showScanner(MediaQuery.of(context).size.width - 16.0, MediaQuery.of(context).size.width - 16.0);
-        
-    VouchedPlugin.setProgressIndicator((value) => showProgress(value));
-    VouchedPlugin.setInstruction((value) => showInstruction(value));
-    VouchedPlugin.setUserData((value) => setUserData(value));
-    VouchedPlugin.setErrorMessage((value) => showErrorMessage(value));   
-  }
+class _ScannerPageState extends State<ScannerPage> {
+  CardDetailInstruction? _instruction;
+  String? _image;
 
   @override
   Widget build(BuildContext context) {
-    final String viewType = 'vouchedScannerCardView';
+    return Scaffold(
+      appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness:
+              Theme.of(context).brightness == Brightness.light
+                  ? Brightness.dark
+                  : Brightness.light,
+        ),
+        title: const Text('Vouched Demo'),
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 0,
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "You're almost there!",
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Use the camera to scan any form of photo ID. '
+                    "We'll use this information to validate your identity.",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        ?.copyWith(height: 1.3),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: VouchedScanner(
+                  borderRadius: BorderRadius.circular(10),
+                  onCardDetailResult: (result) {
+                    _instruction = result.instruction;
+                    _image = result.image;
+                    setState(() {});
+                  },
+                  onResponse: (response) async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailPage(
+                          response: response,
+                          image: _image,
+                        ),
+                      ),
+                    );
+                    Vouched.resumeCamera();
+                  },
+                  onError: (error) {},
+                ),
+              ),
+            ),
+            Expanded(
+              child: Center(child: Text(_readableInstruction)),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).padding.top + kToolbarHeight,
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
-    switch(defaultTargetPlatform) {
-      case TargetPlatform.android:
-        return AndroidView(viewType: viewType, onPlatformViewCreated: (id) async {
-          try {
-            initializeVouched(context);
-          }
-          catch (e) {
-            print(e);
-          }
-        });
-      case TargetPlatform.iOS:
-        return UiKitView(viewType: viewType, onPlatformViewCreated: (id) async {
-          try {
-            initializeVouched(context);             
-          } 
-          catch (e) {
-            print(e);
-          }
-        });
+  String get _readableInstruction {
+    switch (_instruction) {
+      case CardDetailInstruction.noCard:
+        return 'Place your card in the scanner area.';
+      case CardDetailInstruction.onlyOne:
+        return 'Card Found.';
+      case CardDetailInstruction.moveCloser:
+        return 'Please move your device a bit closer.';
+      case CardDetailInstruction.moveAway:
+        return 'Please move your device a bit farther.';
+      case CardDetailInstruction.glare:
+        return 'There is a glare in document.';
+      case CardDetailInstruction.dark:
+        return "It's too dark.";
+      case CardDetailInstruction.blur:
+        return 'The document is not clear.';
+      case CardDetailInstruction.holdSteady:
+        return 'Please do not move your device.';
+      case CardDetailInstruction.noFace:
+      case CardDetailInstruction.openMouth:
+      case CardDetailInstruction.closeMouth:
+      case CardDetailInstruction.lookForward:
+      case CardDetailInstruction.lookLeft:
+      case CardDetailInstruction.lookRight:
+      case CardDetailInstruction.blinkEyes:
+      case CardDetailInstruction.none:
       default:
-      throw UnsupportedError("Unsupported platform view");
+        return _instruction?.toString() ?? '';
     }
   }
 }
