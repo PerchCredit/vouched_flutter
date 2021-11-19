@@ -49,12 +49,13 @@ class DetectorView: NSObject, FlutterPlatformView, FlutterStreamHandler {
     private func onCardDetailResult(_ result: CaptureResult) {
         switch result {
         case .empty:
-            print("Show ID Card")
+            var successData = [String: Any]()
+            successData["instruction"] = "Show ID Card"
+            eventSink?(successData)
         case .id(let result):
             guard let result = result as? CardDetectResult else { return }
             
             var successData = [String: Any]()
-            print(getInstruction(result.instruction))
             successData["step"] = getStep(result.step)
             successData["instruction"] = getInstruction(result.instruction)
             successData["image"] = result.image
@@ -89,9 +90,9 @@ class DetectorView: NSObject, FlutterPlatformView, FlutterStreamHandler {
             }
         case .error(let error):
             if let error = error as? VouchedError, let description = error.errorDescription {
-                print("Error processing: \(description)")
+                self.channel.invokeMethod("error", arguments: description)
             } else {
-                print("Error processing: \(error.localizedDescription)")
+                self.channel.invokeMethod("error", arguments: error.localizedDescription)
             }
         default:
             print("")
