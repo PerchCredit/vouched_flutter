@@ -23,7 +23,7 @@ class DetailPage extends StatelessWidget {
         title: const Text('Personal Details'),
       ),
       body: Scrollbar(
-        isAlwaysShown: true,
+        thumbVisibility: true,
         child: ListView(
           children: [
             if (image != null)

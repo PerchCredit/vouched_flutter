@@ -21,7 +21,6 @@ import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
 import kotlin.collections.*
 
-
 internal class DetectorView(
     methodChannel: MethodChannel,
     eventChannel: EventChannel,
@@ -175,8 +174,8 @@ internal class DetectorView(
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<out String>?,
-        grantResults: IntArray?
+        permissions: Array<out String>,
+        grantResults: IntArray
     ): Boolean {
         if (requestCode != permissionRequestCode) return false
         if (hasAllRequiredPermission()) resumeCamera()
@@ -226,4 +225,6 @@ internal class DetectorView(
             }
         }
     }
+
+
 }
