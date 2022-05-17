@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -8,13 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
-import '../../vouched_flutter.dart';
-import '../src/model/card_detail_result.dart';
-import '../src/model/job_response.dart';
+import '../vouched_flutter.dart';
 
-typedef _ProgressIndicatorCallback = Widget Function(BuildContext, bool);
+typedef ProgressIndicatorCallback = Widget Function(BuildContext, bool);
 
-const _eventChannel = EventChannel('com.acmesoftware.vouched/event');
+const EventChannel _eventChannel = EventChannel(
+  'com.acmesoftware.vouched/event',
+);
 
 class VouchedScanner extends StatefulWidget {
   const VouchedScanner({
@@ -32,7 +31,7 @@ class VouchedScanner extends StatefulWidget {
   final BorderRadius? borderRadius;
   final ValueChanged<CardDetailResult>? onCardDetailResult;
   final ValueChanged<String>? onError;
-  final _ProgressIndicatorCallback? loadingBuilder;
+  final ProgressIndicatorCallback? loadingBuilder;
 
   @override
   State<VouchedScanner> createState() => _VouchedScannerState();
@@ -91,8 +90,8 @@ class _VouchedScannerState extends State<VouchedScanner> {
               creationParams: creationParams,
               onViewCreated: () {
                 if (_subscription == null) {
-                  final _eventStream = _eventChannel.receiveBroadcastStream();
-                  _subscription = _eventStream.listen(_onCardDetectResult);
+                  final eventStream = _eventChannel.receiveBroadcastStream();
+                  _subscription = eventStream.listen(_onCardDetectResult);
                   setState(() {});
                 }
               },
@@ -130,12 +129,12 @@ class _VouchedScannerState extends State<VouchedScanner> {
 
   String get _apiKey {
     const envKey = 'VOUCHED_API_KEY';
-    final _apiKey = widget.apiKey ?? const String.fromEnvironment(envKey);
+    final apiKey = widget.apiKey ?? const String.fromEnvironment(envKey);
     assert(
-      _apiKey.isNotEmpty,
+      apiKey.isNotEmpty,
       'Either pass API Key or provide an dart define named "$envKey"',
     );
-    return _apiKey;
+    return apiKey;
   }
 }
 
@@ -197,7 +196,7 @@ class _ProgressIndicator extends StatelessWidget {
   }) : super(key: key);
 
   final ValueNotifier<bool> loadingNotifier;
-  final _ProgressIndicatorCallback? loadingBuilder;
+  final ProgressIndicatorCallback? loadingBuilder;
 
   @override
   Widget build(BuildContext context) {

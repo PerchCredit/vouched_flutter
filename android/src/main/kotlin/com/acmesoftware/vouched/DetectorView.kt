@@ -21,7 +21,6 @@ import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
 import kotlin.collections.*
 
-
 internal class DetectorView(
     methodChannel: MethodChannel,
     eventChannel: EventChannel,

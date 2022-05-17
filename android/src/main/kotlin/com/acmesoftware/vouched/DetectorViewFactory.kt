@@ -17,7 +17,7 @@ class DetectorViewFactory(
     @Suppress("UNCHECKED_CAST")
     override fun create(context: Context?, viewId: Int, args: Any?): PlatformView {
         if (args == null) throw IllegalArgumentException("args should not be empty")
-        if(context == null) throw  Exception("No context to attach view")
+        if(context == null) throw Exception("No context to attach view")
 
         return DetectorView(methodChannel, eventChannel, context, args as Map<String, Any>)
     }
