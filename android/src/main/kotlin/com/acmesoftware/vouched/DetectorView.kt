@@ -175,8 +175,8 @@ internal class DetectorView(
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<out String>?,
-        grantResults: IntArray?
+        permissions: Array<out String>,
+        grantResults: IntArray
     ): Boolean {
         if (requestCode != permissionRequestCode) return false
         if (hasAllRequiredPermission()) resumeCamera()
@@ -226,4 +226,6 @@ internal class DetectorView(
             }
         }
     }
+
+
 }
